@@ -1,87 +1,87 @@
-import { useState } from 'react';
-import { Text, View, StyleSheet, Pressable, Modal, TextInput } from 'react-native'
+import { Modal, View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
 import SelectDropdown from 'react-native-select-dropdown';
-import { generateYears, months, getDates } from './utils/setUpDates';
+import { generateYears, months, getDates } from '../utils/setUpDates';
 
-const Task = ({title, description, startDate, dueDate, status }) => {
-
-
-    const [task, setTask] = useState({
-        title,
-        description,
-        startDate,
-        dueDate,
-        status
-    })
-    const [modalVisible, setModalVisible] = useState(false);
-
+const TaskForm = ({ create, setCreate, task, setTask, handleCreate }) => {
     return (
-        <View>
-            <Pressable onPress={() => setModalVisible(true)}>
-                <View style={styles.taskContainer}>
-                    <View style={styles.headerContainer}>
-                        <Text style={styles.titleContainer}>{title}</Text>
-                        <View style={styles.statusContainer}>
-                            <Text style={styles.statusText}>{status}</Text>
-                        </View>
-                    </View>
-                    <Text style={styles.textContainer}>{description.substring(0, 50)}...</Text>
-                    <Text style={styles.textContainer}>{startDate.substring(0, 10)} &rarr; {dueDate.substring(0, 10)}</Text>
-                </View>
-            </Pressable>
-            <Modal
+        <Modal
               animationType="fade"
               transparent={true}
-              visible={modalVisible}
+              visible={create}
               onRequestClose={() => {
-                setModalVisible(!modalVisible);
+                setCreate(!create)
               }}>
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                  <Text style={styles.modalText}>Update Form</Text>
+                  <Text style={styles.modalText}>Create Form</Text>
+                  <TextInput 
+                    placeholder='Enter task title'
+                    value={task.title}
+                    onChangeText={(text) => setTask({...task, title : text})}
+                   />
                   <TextInput
-                   value={task.title}
-                   onChangeText={(text) => setTask({...task, title : text})}
-                  />
-                  <TextInput
+                   placeholder='Enter task description'
                    value={task.description}
                    onChangeText={(text) => setTask({...task, description : text})}
                   />
                   <View style={styles.startDateContainer}>
                     <SelectDropdown 
-                        defaultValue={new Date(startDate).getFullYear()}
+                        defaultValue={new Date(task.startDate).getFullYear()}
                         data={generateYears()}
                         buttonStyle={styles.selectYearContainer}
+                        onSelect={(text) => setTask({...task, startDate: new Date(text, new Date(task.startDate).getMonth(), new Date(task.startDate).getDate())})}
                     />
                     <SelectDropdown 
-                        defaultValue={new Date(startDate).getMonth()}
+                        defaultValue={new Date(task.startDate).getMonth()}
                         data={months}
                         buttonStyle={styles.selectContainer}
+                        onSelect={(text) => setTask({...task, startDate: new Date(new Date(task.startDate).getFullYear(), text, new Date(task.startDate).getDate())})}
                     />
                     <SelectDropdown 
-                        defaultValue={new Date(startDate).getDate()}
+                        defaultValue={new Date(task.startDate).getDate()}
                         data={getDates(5)}
                         buttonStyle={styles.selectContainer}
+                        onSelect={(text) => setTask({...task, startDate: new Date(new Date(task.startDate).getFullYear(), new Date(task.startDate).getMonth(), text)})}
+                    />
+                  </View>
+                  <View style={styles.dueDateContainer}>
+                    <SelectDropdown 
+                        defaultValue={new Date(task.dueDate).getFullYear()}
+                        data={generateYears()}
+                        buttonStyle={styles.selectYearContainer}
+                        onSelect={(text) => setTask({...task, dueDate: new Date(text, new Date(task.dueDate).getMonth(), new Date(task.dueDate).getDate())})}
+                    />
+                    <SelectDropdown 
+                        defaultValue={new Date(task.dueDate).getMonth()}
+                        data={months}
+                        buttonStyle={styles.selectContainer}
+                        onSelect={(text) => setTask({...task, dueDate: new Date(new Date(task.dueDate).getFullYear(), text, new Date(task.dueDate).getDate())})}
+                    />
+                    <SelectDropdown 
+                        defaultValue={new Date(task.dueDate).getDate()}
+                        data={getDates(5)}
+                        buttonStyle={styles.selectContainer}
+                        onSelect={(text) => setTask({...task, dueDate: new Date(new Date(task.dueDate).getFullYear(), new Date(task.dueDate).getMonth(), text)})}
                     />
                   </View>
                   <SelectDropdown 
                     defaultValue={task.status}
                     data={['TO-DO', 'IN-PROGRESS', 'COMPLETED', 'CANCELLED']}
+                    onSelect={(text) => setTask({...task, status: text})}
                   />
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
-                    onPress={() => setModalVisible(!modalVisible)}>
+                    onPress={() => setCreate(!create)}>
                     <Text style={styles.textStyle}>Close</Text>
                   </Pressable>
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
-                    onPress={() => console.log("b")}>
-                    <Text style={styles.textStyle}>Update</Text>
+                    onPress={() => handleCreate()}>
+                    <Text style={styles.textStyle}>Create</Text>
                   </Pressable>
                 </View>
               </View>
             </Modal>
-        </View>
     )
 }
 
@@ -163,6 +163,10 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         backgroundColor : 'blue',
       },
+      dueDateContainer : {
+        flexDirection : 'row',
+        backgroundColor : 'blue',
+      },
       selectContainer : {
         width : 50,
       },
@@ -171,4 +175,4 @@ const styles = StyleSheet.create({
       }
 })
 
-export default Task
+export default TaskForm

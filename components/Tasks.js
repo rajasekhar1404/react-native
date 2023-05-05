@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react"
 import { Text, View, StyleSheet } from "react-native"
 import Task from "./taskHolder"
+import { GET_ALL_TASKS } from "./apis/taskApis"
 
 const Tasks = () => {
     
     const [tasks, setTasks] = useState([])
 
     const getAllTasks = async () => {
-        const response = await fetch('http://localhost:8080/tasks/')
+        const response = await fetch(GET_ALL_TASKS)
         const data = await response.json()
         setTasks(data)
     }
 
     useEffect(() => {
-        console.log("something")
         getAllTasks()
     }, [])
 
