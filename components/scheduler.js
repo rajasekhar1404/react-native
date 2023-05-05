@@ -49,7 +49,15 @@ const Scheduler = ({ navigation }) => {
           data={weeksOfMonth}
           renderItem={eachWeek => <FlatList 
             data={eachWeek.item}
-            renderItem={eachDay => <Text 
+            renderItem={eachDay => new Date(yearAndMonth.year, yearAndMonth.month, eachDay.item).getFullYear() +"-"+ new Date(yearAndMonth.year, yearAndMonth.month, eachDay.item).getMonth() +"-"+ new Date(yearAndMonth.year, yearAndMonth.month, eachDay.item).getDate() === new Date().getFullYear() +"-"+ new Date().getMonth() + "-"+new Date().getDate() ? <Text 
+              style={styles.currentDay}
+              onPress={() => navigation.navigate('tasksOfDay', {
+                date: eachDay.item,
+                yearAndMonth
+              })}
+              >
+                {eachDay.item}
+              </Text> : <Text 
               style={styles.eachDay}
               onPress={() => navigation.navigate('tasksOfDay', {
                 date: eachDay.item,
@@ -97,7 +105,14 @@ const styles = StyleSheet.create({
     backgroundColor : 'orange',
     marginLeft : 5,
     width : 50,
-    height : 50
+    height : 50,
+  },
+  currentDay : {
+    backgroundColor : 'green',
+    marginLeft : 5,
+    width : 50,
+    height : 50,
+    color: 'white'
   }
 })
 
