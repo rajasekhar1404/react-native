@@ -1,21 +1,40 @@
 import { useEffect, useState } from "react"
 import { Text, View, StyleSheet } from "react-native"
 import Task from "./taskHolder"
-import { GET_ALL_TASKS } from "./apis/taskApis"
+import { GET_ALL_TASKS, UPDATE_TASK } from "./apis/taskApis"
 
 const Tasks = () => {
     
     const [tasks, setTasks] = useState([])
-
+    const [task, setTask] = useState({
+        title: '',
+        description: '',
+        startDate: new Date().toISOString(),
+        dueDate: new Date().toISOString(),
+        status: ''
+    })
+    
+    useEffect(() => {
+        getAllTasks()
+    }, [])
+    
     const getAllTasks = async () => {
         const response = await fetch(GET_ALL_TASKS)
         const data = await response.json()
         setTasks(data)
     }
 
-    useEffect(() => {
-        getAllTasks()
-    }, [])
+    const handleUpdate = async () => {
+        // const response = await fetch(UPDATE_TASK, {
+        //     method : 'PUT',
+        //     headers : {
+        //         'Content-Type' : 'application/json'
+        //     },
+        //     body : JSON.stringify()
+        // })
+        // console.log(response)
+        console.log(task)
+    }
 
     return (
         <View>
@@ -26,6 +45,9 @@ const Tasks = () => {
                     startDate={eachTask.startDate}
                     dueDate={eachTask.dueDate}
                     status={eachTask.status}
+                    task={task}
+                    setTask={setTask}
+                    handleUpdate={handleUpdate}
                 />) : <Text style={styles.noTasksContainer}>No tasks created.</Text>
             }
         </View>

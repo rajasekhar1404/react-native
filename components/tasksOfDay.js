@@ -19,7 +19,6 @@ const TasksOfDay = ({ route, navigation}) => {
     
     
     const handleCreate = async () => {
-        console.log(JSON.stringify(task))
         const response = await fetch(CREATE_TASK, {
             method : 'POST',
             headers : {
@@ -27,9 +26,6 @@ const TasksOfDay = ({ route, navigation}) => {
             },
             body : JSON.stringify(task)
         })
-        console.log(response)
-        // const data = await response.json()
-        // console.log(data)
     }
     
     const getTasksOfDay = async () => {
@@ -39,7 +35,6 @@ const TasksOfDay = ({ route, navigation}) => {
                 <Button onPress={() => setCreate(true)} title="Create Task" />
               )
         })
-
         const response = await fetch(`${TASKS_BY_DATE}`, {
             method : 'POST',
             headers : {
@@ -47,8 +42,9 @@ const TasksOfDay = ({ route, navigation}) => {
             },
             body : JSON.stringify({ date : new Date(yearAndMonth.year, yearAndMonth.month, date).toISOString()})
         })
-
+        
         const data = await response.json()
+        console.log(data)
         setTasksOfDay(data)
     }
 
@@ -59,7 +55,7 @@ const TasksOfDay = ({ route, navigation}) => {
     return (
         <View>
             <View>
-                <Text style={styles.dateContainer}>{yearAndMonth.year + '-' + yearAndMonth.month + '-' + date}</Text>
+                <Text style={styles.dateContainer}>{`${yearAndMonth.year}-${yearAndMonth.month + 1}-${date}`}</Text>
             </View>
             <View>
                 {
@@ -69,6 +65,7 @@ const TasksOfDay = ({ route, navigation}) => {
                         startDate={eachTask.startDate}
                         dueDate={eachTask.dueDate}
                         status={eachTask.status}
+                        task={task}
                     />) : <Text style={styles.noTasksContainer}>No tasks created.</Text>
                 }
             </View>

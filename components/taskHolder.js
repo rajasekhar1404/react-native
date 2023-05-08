@@ -3,16 +3,8 @@ import { Text, View, StyleSheet, Pressable, Modal, TextInput } from 'react-nativ
 import SelectDropdown from 'react-native-select-dropdown';
 import { generateYears, months, getDates } from './utils/setUpDates';
 
-const Task = ({title, description, startDate, dueDate, status }) => {
+const Task = ({title, description, startDate, dueDate, status, task, setTask, handleUpdate }) => {
 
-
-    const [task, setTask] = useState({
-        title,
-        description,
-        startDate,
-        dueDate,
-        status
-    })
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -75,7 +67,7 @@ const Task = ({title, description, startDate, dueDate, status }) => {
                   </Pressable>
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
-                    onPress={() => console.log("b")}>
+                    onPress={() => handleUpdate()}>
                     <Text style={styles.textStyle}>Update</Text>
                   </Pressable>
                 </View>
