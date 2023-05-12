@@ -7,6 +7,7 @@ const Tasks = () => {
     
     const [tasks, setTasks] = useState([])
     const [task, setTask] = useState({
+        _id: '',
         title: '',
         description: '',
         startDate: new Date().toISOString(),
@@ -25,21 +26,22 @@ const Tasks = () => {
     }
 
     const handleUpdate = async () => {
-        // const response = await fetch(UPDATE_TASK, {
-        //     method : 'PUT',
-        //     headers : {
-        //         'Content-Type' : 'application/json'
-        //     },
-        //     body : JSON.stringify()
-        // })
-        // console.log(response)
         console.log(task)
+        const response = await fetch(UPDATE_TASK, {
+            method : 'PUT',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(task)
+        })
+        console.log(response)
     }
 
     return (
         <View>
             {
                 tasks.length !== 0 ? tasks.map(eachTask => <Task key={eachTask._id}
+                    _id={eachTask._id}
                     title={eachTask.title} 
                     description={eachTask.description}
                     startDate={eachTask.startDate}

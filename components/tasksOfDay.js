@@ -44,7 +44,6 @@ const TasksOfDay = ({ route, navigation}) => {
         })
         
         const data = await response.json()
-        console.log(data)
         setTasksOfDay(data)
     }
 

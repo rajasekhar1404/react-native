@@ -3,13 +3,18 @@ import { Text, View, StyleSheet, Pressable, Modal, TextInput } from 'react-nativ
 import SelectDropdown from 'react-native-select-dropdown';
 import { generateYears, months, getDates } from './utils/setUpDates';
 
-const Task = ({title, description, startDate, dueDate, status, task, setTask, handleUpdate }) => {
+const Task = ({_id, title, description, startDate, dueDate, status, task, setTask, handleUpdate }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
+  
+    const handleUpdateModelVisiblity = () => {
+        setTask({...task, _id, title, description, startDate, dueDate, status})
+        setModalVisible(!modalVisible)
+    }
 
     return (
         <View>
-            <Pressable onPress={() => setModalVisible(true)}>
+            <Pressable onPress={() => handleUpdateModelVisiblity()}>
                 <View style={styles.taskContainer}>
                     <View style={styles.headerContainer}>
                         <Text style={styles.titleContainer}>{title}</Text>
@@ -33,7 +38,7 @@ const Task = ({title, description, startDate, dueDate, status, task, setTask, ha
                   <Text style={styles.modalText}>Update Form</Text>
                   <TextInput
                    value={task.title}
-                   onChangeText={(text) => setTask({...task, title : text})}
+                   onChangeText={text => setTask({...task, title: text})}
                   />
                   <TextInput
                    value={task.description}

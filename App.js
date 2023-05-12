@@ -1,4 +1,4 @@
-import { Button, StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import Scheduler from "./components/scheduler"
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -6,7 +6,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import tasksOfDay from "./components/tasksOfDay"
 import Tasks from "./components/Tasks"
 import Icon from 'react-native-vector-icons/FontAwesome'
-import TaskForm from "./components/utils/formModel"
 
 const Tabs = createBottomTabNavigator()
 
