@@ -72,7 +72,10 @@ const Task = ({_id, title, description, startDate, dueDate, status, task, setTas
                   </Pressable>
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
-                    onPress={() => handleUpdate()}>
+                    onPress={() =>{
+                      setModalVisible(!modalVisible)
+                      handleUpdate()
+                       }}>
                     <Text style={styles.textStyle}>Update</Text>
                   </Pressable>
                 </View>

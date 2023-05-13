@@ -6,6 +6,7 @@ import { GET_ALL_TASKS, UPDATE_TASK } from "./apis/taskApis"
 const Tasks = () => {
     
     const [tasks, setTasks] = useState([])
+    const [isUpdated, setUpdate] = useState(0)
     const [task, setTask] = useState({
         _id: '',
         title: '',
@@ -17,7 +18,7 @@ const Tasks = () => {
     
     useEffect(() => {
         getAllTasks()
-    }, [])
+    }, [isUpdated])
     
     const getAllTasks = async () => {
         const response = await fetch(GET_ALL_TASKS)
@@ -26,7 +27,6 @@ const Tasks = () => {
     }
 
     const handleUpdate = async () => {
-        console.log(task)
         const response = await fetch(UPDATE_TASK, {
             method : 'PUT',
             headers : {
@@ -34,7 +34,9 @@ const Tasks = () => {
             },
             body : JSON.stringify(task)
         })
-        console.log(response)
+        if (response.status === 200) {
+            isUpdated === 0 ? setUpdate(1) : setUpdate(0)
+        }
     }
 
     return (
