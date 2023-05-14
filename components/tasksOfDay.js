@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
 import Task from './taskHolder'
 import { CREATE_TASK, TASKS_BY_DATE } from './apis/taskApis'
 import TaskForm from './utils/formModel'
@@ -57,15 +57,20 @@ const TasksOfDay = ({ route, navigation}) => {
                 <Text style={styles.dateContainer}>{`${yearAndMonth.year}-${yearAndMonth.month + 1}-${date}`}</Text>
             </View>
             <View>
-                {
-                    tasksOfDay.length !== 0 ? tasksOfDay.map(eachTask => <Task key={eachTask._id}
-                        title={eachTask.title} 
-                        description={eachTask.description}
-                        startDate={eachTask.startDate}
-                        dueDate={eachTask.dueDate}
-                        status={eachTask.status}
+                {                
+                tasksOfDay.length !== 0 ? <FlatList 
+                    data={tasksOfDay}
+                    renderItem={eachTask => <Task 
+                        key={eachTask.item._id}
+                        title={eachTask.item.title} 
+                        description={eachTask.item.description}
+                        startDate={eachTask.item.startDate}
+                        dueDate={eachTask.item.dueDate}
+                        status={eachTask.item.status}
+                        setTask={setTask}
                         task={task}
-                    />) : <Text style={styles.noTasksContainer}>No tasks created.</Text>
+                    />}
+                /> : <Text style={styles.noTasksContainer}>No tasks created.</Text>
                 }
             </View>
             {

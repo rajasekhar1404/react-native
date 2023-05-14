@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, Image } from "react-native"
 import Scheduler from "./components/scheduler"
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import tasksOfDay from "./components/tasksOfDay"
 import Tasks from "./components/Tasks"
 import Icon from 'react-native-vector-icons/FontAwesome'
+import TaskPad from "./components/taskPad"
 
 const Tabs = createBottomTabNavigator()
 
@@ -29,6 +30,15 @@ function BottomTabs() {
        options={{
         tabBarIcon : () => (
           <Icon name="bars" size={30} color="black" />
+        )
+       }} 
+      />
+      <Tabs.Screen
+       name="Task Pad"
+       component={TaskPad}
+       options={{
+        tabBarIcon : () => (
+          <Icon name="clipboard" size={30} color="black" />
         )
        }} 
       />

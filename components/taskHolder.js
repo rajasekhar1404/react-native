@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Text, View, StyleSheet, Pressable, Modal, TextInput } from 'react-native'
 import SelectDropdown from 'react-native-select-dropdown';
 import { generateYears, months, getDates } from './utils/setUpDates';
+import TaskForm from './utils/formModel';
 
 const Task = ({_id, title, description, startDate, dueDate, status, task, setTask, handleUpdate }) => {
 
@@ -26,61 +27,9 @@ const Task = ({_id, title, description, startDate, dueDate, status, task, setTas
                     <Text style={styles.textContainer}>{startDate.substring(0, 10)} &rarr; {dueDate.substring(0, 10)}</Text>
                 </View>
             </Pressable>
-            <Modal
-              animationType="fade"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                setModalVisible(!modalVisible);
-              }}>
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <Text style={styles.modalText}>Update Form</Text>
-                  <TextInput
-                   value={task.title}
-                   onChangeText={text => setTask({...task, title: text})}
-                  />
-                  <TextInput
-                   value={task.description}
-                   onChangeText={(text) => setTask({...task, description : text})}
-                  />
-                  <View style={styles.startDateContainer}>
-                    <SelectDropdown 
-                        defaultValue={new Date(startDate).getFullYear()}
-                        data={generateYears()}
-                        buttonStyle={styles.selectYearContainer}
-                    />
-                    <SelectDropdown 
-                        defaultValue={new Date(startDate).getMonth()}
-                        data={months}
-                        buttonStyle={styles.selectContainer}
-                    />
-                    <SelectDropdown 
-                        defaultValue={new Date(startDate).getDate()}
-                        data={getDates(5)}
-                        buttonStyle={styles.selectContainer}
-                    />
-                  </View>
-                  <SelectDropdown 
-                    defaultValue={task.status}
-                    data={['TO-DO', 'IN-PROGRESS', 'COMPLETED', 'CANCELLED']}
-                  />
-                  <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => setModalVisible(!modalVisible)}>
-                    <Text style={styles.textStyle}>Close</Text>
-                  </Pressable>
-                  <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() =>{
-                      setModalVisible(!modalVisible)
-                      handleUpdate()
-                       }}>
-                    <Text style={styles.textStyle}>Update</Text>
-                  </Pressable>
-                </View>
-              </View>
-            </Modal>
+            {
+              modalVisible && <TaskForm create={modalVisible} setCreate={setModalVisible} task={task} setTask={setTask} handleCreate={handleUpdate}/>
+            }
         </View>
     )
 }

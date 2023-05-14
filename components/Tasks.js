@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Text, View, StyleSheet } from "react-native"
+import { Text, View, StyleSheet, FlatList } from "react-native"
 import Task from "./taskHolder"
 import { GET_ALL_TASKS, UPDATE_TASK } from "./apis/taskApis"
 
@@ -42,17 +42,20 @@ const Tasks = () => {
     return (
         <View>
             {
-                tasks.length !== 0 ? tasks.map(eachTask => <Task key={eachTask._id}
-                    _id={eachTask._id}
-                    title={eachTask.title} 
-                    description={eachTask.description}
-                    startDate={eachTask.startDate}
-                    dueDate={eachTask.dueDate}
-                    status={eachTask.status}
-                    task={task}
-                    setTask={setTask}
-                    handleUpdate={handleUpdate}
-                />) : <Text style={styles.noTasksContainer}>No tasks created.</Text>
+               tasks.length !== 0 ? <FlatList 
+                    data={tasks}
+                    renderItem={eachTask => <Task 
+                        _id={eachTask.item._id}
+                        title={eachTask.item.title} 
+                        description={eachTask.item.description}
+                        startDate={eachTask.item.startDate}
+                        dueDate={eachTask.item.dueDate}
+                        status={eachTask.item.status}
+                        task={task}
+                        setTask={setTask}
+                        handleUpdate={handleUpdate}
+                    />}
+                /> : <Text style={styles.noTasksContainer}>No tasks created.</Text>
             }
         </View>
     )
