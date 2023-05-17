@@ -7,6 +7,7 @@ import tasksOfDay from "./components/tasksOfDay"
 import Tasks from "./components/Tasks"
 import Icon from 'react-native-vector-icons/FontAwesome'
 import TaskPad from "./components/taskPad"
+import Psyche from "./components/psyche"
 
 const Tabs = createBottomTabNavigator()
 
@@ -39,6 +40,15 @@ function BottomTabs() {
        options={{
         tabBarIcon : () => (
           <Icon name="clipboard" size={30} color="black" />
+        )
+       }} 
+      />
+      <Tabs.Screen
+       name="Psyche"
+       component={Psyche}
+       options={{
+        tabBarIcon : () => (
+          <Icon name="key" size={30} color="black" />
         )
        }} 
       />
