@@ -5,4 +5,4 @@ export const CREATE_TASK = `${BASE_URL}tasks/create`
 export const UPDATE_TASK = `${BASE_URL}tasks/update`
 export const GET_TASKPAD_CONTENT = `${BASE_URL}taskpad`
 export const UPDATE_TASKPAD_CONTENT = `${BASE_URL}taskpad/update`
-export const PSYCHE_GET = `https://script.google.com/macros/s/AKfycbxTCtbEXuIPhazs1EEL0aB9wuf5iW8osiimjh89jKQ461lSbneokCELY-Szxgo08UsE/exec`
+export const PSYCHE_GET = `https://script.google.com/macros/s/AKfycbyHveY8SMnN5WgYltdw-_RHoIV_eZddMFvT0c_iolGtuNOQ0lbbrZ4nMQN-O38nu00P/exec`

@@ -1,21 +1,49 @@
 import { useState } from "react"
-import { View, Text, StyleSheet, TextInput, Button, ScrollView } from "react-native"
+import { View, Text, StyleSheet, TextInput, Button, ScrollView, Modal, Pressable } from "react-native"
 import { PSYCHE_GET } from "./apis/taskApis"
 
-const Psyche = () => {
+const Psyche = ({ navigation }) => {
 
     const [user, setUser] = useState({
         username: '',
         password: '',
         website: ''
     })
+    const [newCred, setNewCred] = useState({
+        username:"",
+        password:"",
+        url:"",
+        website:""
+    })
     const [credentials, setCredentials] = useState([])
+    const [modelVisibility, setModelVisibility] = useState(false)
+
+    navigation.setOptions({
+        headerRight: () => (
+            <Button 
+            onPress={() => setModelVisibility(!modelVisibility)}
+            style={styles.addNewButton}
+            title="Add new"
+            />
+        )
+    })
+
 
     const getCredentials = async () => {
         const response = await fetch(`${PSYCHE_GET}?username=${user.username}&password=${user.password}&website=${user.website}`)
         const data = await response.json()
         setCredentials(data.data)
         console.log(data)
+    }
+
+    const handleCreate = async () => {
+        const response = await fetch(PSYCHE_GET, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'text/csv'
+            },
+            body: JSON.stringify(newCred)
+        })
     }
 
     return (
@@ -66,6 +94,50 @@ const Psyche = () => {
                     </ScrollView>
                 </View>
             </View>
+            {
+              modelVisibility && <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modelVisibility}
+              onRequestClose={() => {
+                setModelVisibility(!modelVisibility)
+              }}>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <TextInput 
+                    style={styles.inputBox}
+                    placeholder="Enter the website"
+                    onChangeText={(text) => setNewCred({...newCred, website: text})}
+                  />
+                  <TextInput 
+                    style={styles.inputBox}
+                    placeholder="Enter the url"
+                    onChangeText={(text) => setNewCred({...newCred, url: text})}
+                  />
+                  <TextInput 
+                    style={styles.inputBox}
+                    placeholder="Enter the website"
+                    onChangeText={(text) => setNewCred({...newCred, username: text})}
+                  />
+                  <TextInput 
+                    style={styles.inputBox}
+                    placeholder="Enter the website"
+                    onChangeText={(text) => setNewCred({...newCred, password: text})}
+                  />
+                <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => setModelVisibility(!modelVisibility)}>
+                    <Text style={styles.textStyle}>Close</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => handleCreate()}>
+                    <Text style={styles.textStyle}>Create</Text>
+                  </Pressable>
+                  </View>
+              </View>
+            </Modal>
+            }
         </View>
     )
 }
@@ -131,7 +203,48 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         padding: 5,
         marginBottom: 5
-    }
+    },
+    addNewButton : {
+        
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+      },
+      modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
+      },
+      textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+      },
+      button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+      },
+      buttonClose: {
+        backgroundColor: '#2196F3',
+      }
 })
 
 export default Psyche;
