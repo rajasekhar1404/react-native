@@ -1,13 +1,13 @@
-import Navigator from "./components/utils/navigater"
-import Login from "./components/authentication/login"
+import Navigator from "./utils/navigater"
+import Login from "./authentication/login"
 import { StyleSheet, View } from "react-native"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect, useContext } from "react"
-import { LOGGEDINUSER } from "./components/apis/taskApis"
-import { OK } from "./components/utils/constants"
-import { LoginContext, LoginStateProvider } from "./components/utils/contextStore"
+import { LOGGEDINUSER } from "./apis/taskApis"
+import { OK } from "./utils/constants"
+import { LoginContext } from "./utils/contextStore"
 
-const Index = () => {
+const Home = () => {
 
   const {key, setKey} = useContext(LoginContext)
 
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Index
+export default Home
