@@ -1,44 +1,52 @@
 import { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
 import Task from './taskHolder'
-import { CREATE_TASK, TASKS_BY_DATE } from './apis/taskApis'
-import TaskForm from './utils/formModel'
+import { CREATE_TASK, TASKS_BY_DATE } from '../apis/taskApis'
+import TaskForm from '../utils/formModel'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const TasksOfDay = ({ route, navigation}) => {
 
     const {date, yearAndMonth} = route.params
     const [tasksOfDay, setTasksOfDay] = useState([])
     const [create, setCreate] = useState(false)
-    const [task, setTask] = useState({
+    const initalTask = {
         title: '',
         description: '',
-        startDate: new Date().toISOString(),
-        dueDate: new Date().toISOString(),
+        startDate: new Date(yearAndMonth.year, yearAndMonth.month, date).toISOString(),
+        dueDate: new Date(yearAndMonth.year, yearAndMonth.month, date).toISOString(),
         status: ''
-    })
+    }
+    const [task, setTask] = useState(initalTask)
     
     
     const handleCreate = async () => {
         const response = await fetch(CREATE_TASK, {
             method : 'POST',
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization' : `Bearer ${await AsyncStorage.getItem('key')}`
             },
             body : JSON.stringify(task)
         })
+    }
+
+    const handleUpdate = () => {
+        console.log("something")
     }
     
     const getTasksOfDay = async () => {
         
         navigation.setOptions({
             headerRight: () => (
-                <Button onPress={() => setCreate(true)} title="Create Task" />
+                <Button onPress={() => {setTask(initalTask); setCreate(true)}} title="Create Task" />
               )
         })
         const response = await fetch(`${TASKS_BY_DATE}`, {
             method : 'POST',
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${await AsyncStorage.getItem('key')}`
             },
             body : JSON.stringify({ date : new Date(yearAndMonth.year, yearAndMonth.month, date).toISOString()})
         })
@@ -69,6 +77,7 @@ const TasksOfDay = ({ route, navigation}) => {
                         status={eachTask.item.status}
                         setTask={setTask}
                         task={task}
+                        handleUpdate={handleUpdate}
                     />}
                 /> : <Text style={styles.noTasksContainer}>No tasks created.</Text>
                 }

@@ -15,11 +15,15 @@ const TaskForm = ({ create, setCreate, task, setTask, handleCreate }) => {
                 <View style={styles.modalView}>
                   <Text style={styles.modalText}>Create Form</Text>
                   <TextInput 
+                    style={styles.descriptionContainer}
                     placeholder='Enter task title'
                     value={task.title}
                     onChangeText={(text) => setTask({...task, title : text})}
                    />
                   <TextInput
+                   style={styles.descriptionContainer}
+                   multiline={true}
+                   numberOfLines={7}
                    placeholder='Enter task description'
                    value={task.description}
                    onChangeText={(text) => setTask({...task, description : text})}
@@ -32,19 +36,19 @@ const TaskForm = ({ create, setCreate, task, setTask, handleCreate }) => {
                         onSelect={(text) => setTask({...task, startDate: new Date(text, new Date(task.startDate).getMonth(), new Date(task.startDate).getDate())})}
                     />
                     <SelectDropdown 
-                        defaultValue={new Date(task.startDate).getMonth()}
+                        defaultValue={new Date(task.startDate).getMonth() + 1}
                         data={months}
-                        buttonStyle={styles.selectContainer}
-                        onSelect={(text) => setTask({...task, startDate: new Date(new Date(task.startDate).getFullYear(), text, new Date(task.startDate).getDate())})}
+                        buttonStyle={styles.selectYearContainer}
+                        onSelect={(text) => setTask({...task, startDate: new Date(new Date(task.startDate).getFullYear(), text - 1, new Date(task.startDate).getDate())})}
                     />
                     <SelectDropdown 
                         defaultValue={new Date(task.startDate).getDate()}
                         data={getDates(5)}
-                        buttonStyle={styles.selectContainer}
+                        buttonStyle={styles.selectYearContainer}
                         onSelect={(text) => setTask({...task, startDate: new Date(new Date(task.startDate).getFullYear(), new Date(task.startDate).getMonth(), text)})}
                     />
                   </View>
-                  <View style={styles.dueDateContainer}>
+                  <View style={styles.startDateContainer}>
                     <SelectDropdown 
                         defaultValue={new Date(task.dueDate).getFullYear()}
                         data={generateYears()}
@@ -52,33 +56,38 @@ const TaskForm = ({ create, setCreate, task, setTask, handleCreate }) => {
                         onSelect={(text) => setTask({...task, dueDate: new Date(text, new Date(task.dueDate).getMonth(), new Date(task.dueDate).getDate())})}
                     />
                     <SelectDropdown 
-                        defaultValue={new Date(task.dueDate).getMonth()}
+                        defaultValue={new Date(task.dueDate).getMonth() + 1}
                         data={months}
-                        buttonStyle={styles.selectContainer}
-                        onSelect={(text) => setTask({...task, dueDate: new Date(new Date(task.dueDate).getFullYear(), text, new Date(task.dueDate).getDate())})}
+                        buttonStyle={styles.selectYearContainer}
+                        onSelect={(text) => setTask({...task, dueDate: new Date(new Date(task.dueDate).getFullYear(), text - 1, new Date(task.dueDate).getDate())})}
                     />
-                    <SelectDropdown 
-                        defaultValue={new Date(task.dueDate).getDate()}
-                        data={getDates(5)}
-                        buttonStyle={styles.selectContainer}
-                        onSelect={(text) => setTask({...task, dueDate: new Date(new Date(task.dueDate).getFullYear(), new Date(task.dueDate).getMonth(), text)})}
-                    />
+                    <View>
+                      <SelectDropdown
+                          defaultValue={new Date(task.dueDate).getDate()}
+                          data={getDates(5)}
+                          buttonStyle={styles.selectYearContainer}
+                          onSelect={(text) => setTask({...task, dueDate: new Date(new Date(task.dueDate).getFullYear(), new Date(task.dueDate).getMonth(), text)})}
+                      />
+                    </View>
                   </View>
-                  <SelectDropdown 
-                    defaultValue={task.status}
-                    data={['TO-DO', 'IN-PROGRESS', 'COMPLETED', 'CANCELLED']}
-                    onSelect={(text) => setTask({...task, status: text})}
-                  />
-                  <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => setCreate(!create)}>
-                    <Text style={styles.textStyle}>Close</Text>
-                  </Pressable>
-                  <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => handleCreate()}>
-                    <Text style={styles.textStyle}>Create</Text>
-                  </Pressable>
+                    <SelectDropdown 
+                      defaultValue={task.status}
+                      data={['TO-DO', 'IN-PROGRESS', 'COMPLETED', 'CANCELLED']}
+                      onSelect={(text) => setTask({...task, status: text})}
+                      buttonStyle={styles.seletStatusContainer}
+                    />
+                  <View style={styles.bottonContainer}>
+                    <Pressable
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => setCreate(!create)}>
+                      <Text style={styles.textStyle}>Close</Text>
+                    </Pressable>
+                    <Pressable
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => {handleCreate();setCreate(!create)}}>
+                      <Text style={styles.textStyle}>Create</Text>
+                    </Pressable>
+                  </View>
                 </View>
               </View>
             </Modal>
@@ -142,8 +151,12 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
       },
+      bottonContainer : {
+        flexDirection: 'row'
+      },
       modalText: {
-        marginBottom: 15,
+        fontSize: 25,
+        fontWeight: 'bold',
         textAlign: 'center',
       },
       textStyle: {
@@ -152,26 +165,45 @@ const styles = StyleSheet.create({
         textAlign: 'center',
       },
       button: {
-        borderRadius: 20,
+        borderRadius: 7,
+        width: 80,
         padding: 10,
         elevation: 2,
+        margin: 10
       },
       buttonClose: {
         backgroundColor: '#2196F3',
       },
       startDateContainer : {
         flexDirection : 'row',
-        backgroundColor : 'blue',
+        borderColor: '#aaa',
+        borderWidth: 1,
+        borderRadius: 7,
+        marginBottom: 7
       },
       dueDateContainer : {
         flexDirection : 'row',
-        backgroundColor : 'blue',
-      },
-      selectContainer : {
-        width : 50,
       },
       selectYearContainer : {
-        width : 75
+        width : 80,
+        backgroundColor: '#fff',
+      },
+      seletStatusContainer : {
+        width : 200,
+        backgroundColor: '#fff',
+        borderColor: '#aaa',
+        borderWidth: 1,
+        borderRadius: 7
+      },
+      descriptionContainer: {
+        width: 300,
+        textAlignVertical: 'top',
+        borderWidth: 1,
+        borderColor: '#aaa',
+        padding: 7,
+        marginTop: 7,
+        marginBottom: 7,
+        borderRadius: 7
       }
 })
 

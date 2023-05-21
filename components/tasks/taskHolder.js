@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Text, View, StyleSheet, Pressable, Modal, TextInput } from 'react-native'
 import SelectDropdown from 'react-native-select-dropdown';
-import { generateYears, months, getDates } from './utils/setUpDates';
-import TaskForm from './utils/formModel';
+import { generateYears, months, getDates } from '../utils/setUpDates';
+import TaskForm from '../utils/formModel';
 
 const Task = ({_id, title, description, startDate, dueDate, status, task, setTask, handleUpdate }) => {
 

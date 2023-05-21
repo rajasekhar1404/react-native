@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { View, Text, StyleSheet, TextInput, Button, ScrollView, Modal, Pressable } from "react-native"
-import { PSYCHE_GET } from "./apis/taskApis"
+import { PSYCHE_GET } from "../apis/taskApis"
 
 const Psyche = ({ navigation }) => {
 

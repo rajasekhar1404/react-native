@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { View, StyleSheet, TextInput, Text, Button, Image, Pressable, ScrollView } from "react-native"
 import Markdown from "react-native-markdown-display"
-import { GET_TASKPAD_CONTENT, UPDATE_TASKPAD_CONTENT } from "./apis/taskApis"
+import { GET_TASKPAD_CONTENT, UPDATE_TASKPAD_CONTENT } from "../apis/taskApis"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const TaskPad = ({ navigation }) => {
 
@@ -20,26 +21,32 @@ const TaskPad = ({ navigation }) => {
                 
                 {
                     isEditing ? <View style={styles.saveButtonContainer}>
-                    <Pressable onPress={handleAddTimeStamp}><Image style={styles.imageStyles} source={require('../calendar-plus.png')} alt="Add timestamp"/></Pressable>
-                    <Pressable onPress={handleSave}><Image style={styles.imageStyles} source={require('../journal-check.png')} alt="Save"/></Pressable>
+                    <Pressable onPress={handleAddTimeStamp}><Image style={styles.imageStyles} source={require('../../assets/calendar-plus.png')} alt="Add timestamp"/></Pressable>
+                    <Pressable onPress={handleSave}><Image style={styles.imageStyles} source={require('../../assets/journal-check.png')} alt="Save"/></Pressable>
                 </View> : <Pressable onPress={handleEditing}>
-                <Image 
-                style={styles.imageContainer}
-                source={require('../pencil-square.png')}
-                alt="Edit"
-                />
+                    <Image 
+                    style={styles.imageContainer}
+                    source={require('../../assets/pencil-square.png')}
+                    alt="Edit"
+                    />
                 </Pressable>
                 }
-                
             </View>
             )
         })
 
 
     const getTaskPadContent = async () => {
-            const response = await fetch(GET_TASKPAD_CONTENT)
+            const response = await fetch(GET_TASKPAD_CONTENT, {
+                method: 'GET',
+                headers: {
+                    'Authorization' : `Bearer ${await AsyncStorage.getItem('key')}`
+                }
+            })
             const data = await response.json()
-            setText(data)
+            if (data) {
+                setText(data)
+            }
         }
         
         const handleSave = async () => {
@@ -79,7 +86,8 @@ const TaskPad = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     mainContainer : {
-        backgroundColor : '#282c34'
+        backgroundColor : '#282c34',
+        padding: 5
     },
     textArea : {
         textAlignVertical : 'top',

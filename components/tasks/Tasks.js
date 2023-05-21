@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Text, View, StyleSheet, FlatList } from "react-native"
 import Task from "./taskHolder"
-import { GET_ALL_TASKS, UPDATE_TASK } from "./apis/taskApis"
+import { GET_ALL_TASKS, UPDATE_TASK } from "../apis/taskApis"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const Tasks = () => {
+const Tasks = ({navigation}) => {
     
     const [tasks, setTasks] = useState([])
     const [isUpdated, setUpdate] = useState(0)
@@ -21,7 +22,12 @@ const Tasks = () => {
     }, [isUpdated])
     
     const getAllTasks = async () => {
-        const response = await fetch(GET_ALL_TASKS)
+        const response = await fetch(GET_ALL_TASKS, {
+            method: 'GET',
+            headers: {
+                'Authorization' : `Bearer ${await AsyncStorage.getItem('key')}`
+            }
+        })
         const data = await response.json()
         setTasks(data)
     }
@@ -30,7 +36,8 @@ const Tasks = () => {
         const response = await fetch(UPDATE_TASK, {
             method : 'PUT',
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization' : `Bearer ${await AsyncStorage.getItem('key')}`
             },
             body : JSON.stringify(task)
         })

@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, FlatList } from "react-native"
-import { setUpDates, generateYears, months } from "./utils/setUpDates"
+import { View, Text, StyleSheet, FlatList, Button } from "react-native"
+import { setUpDates, generateYears, months } from "../utils/setUpDates"
 import SelectDropdown from "react-native-select-dropdown"
 import { useEffect, useState } from "react"
+import Logout from "../authentication/logout"
 
 const Scheduler = ({ navigation }) => {
 
@@ -14,6 +15,12 @@ const Scheduler = ({ navigation }) => {
   useEffect(() => {
       setWeeksOfMonth(setUpDates(yearAndMonth.year, yearAndMonth.month))
   }, [yearAndMonth])
+
+  navigation.setOptions({
+    headerRight: () => (
+      <Logout />
+    )
+})
 
   const handleYearChange = (year) => {
     setYearAndMonth({
