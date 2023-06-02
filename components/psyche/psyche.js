@@ -1,8 +1,23 @@
-import { useState } from "react"
-import { View, Text, StyleSheet, TextInput, Button, ScrollView, Modal, Pressable } from "react-native"
+import { useState, useEffect } from "react"
+import { View, Text, StyleSheet, TextInput, Button, ScrollView, Modal, Pressable, Image } from "react-native"
 import { PSYCHE_GET } from "../apis/taskApis"
 
 const Psyche = ({ navigation }) => {
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <Pressable
+                    onPress={() => setModelVisibility(!modelVisibility)}
+                >
+                    <Image 
+                    style={styles.addNewButton}
+                    source={require('../../assets/addNew.png')}
+                    />
+                </Pressable>
+            )
+        })
+    }, [])
 
     const [user, setUser] = useState({
         username: '',
@@ -18,22 +33,12 @@ const Psyche = ({ navigation }) => {
     const [credentials, setCredentials] = useState([])
     const [modelVisibility, setModelVisibility] = useState(false)
 
-    navigation.setOptions({
-        headerRight: () => (
-            <Button 
-            onPress={() => setModelVisibility(!modelVisibility)}
-            style={styles.addNewButton}
-            title="Add new"
-            />
-        )
-    })
 
 
     const getCredentials = async () => {
         const response = await fetch(`${PSYCHE_GET}?username=${user.username}&password=${user.password}&website=${user.website}`)
         const data = await response.json()
         setCredentials(data.data)
-        console.log(data)
     }
 
     const handleCreate = async () => {
@@ -205,7 +210,9 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     addNewButton : {
-        
+        width: 30,
+        height: 30,
+        marginRight: 10
     },
     centeredView: {
         flex: 1,

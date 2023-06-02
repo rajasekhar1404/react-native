@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'left',
         flex: 1,
+        color: '#fff'
     },
     headerContainer: {
         flexDirection: 'row',
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
         padding : 10,
         marginHorizontal : 10,
         marginVertical : 5,
-        backgroundColor : '#2596be',
+        backgroundColor : '#5D6D7E',
         borderRadius : 5
     },
     textContainer : {

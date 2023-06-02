@@ -14,13 +14,13 @@ const Scheduler = ({ navigation }) => {
 
   useEffect(() => {
       setWeeksOfMonth(setUpDates(yearAndMonth.year, yearAndMonth.month))
-  }, [yearAndMonth])
-
-  navigation.setOptions({
-    headerRight: () => (
-      <Logout />
-    )
-})
+      navigation.setOptions({
+        headerRight: () => (
+          <Logout />
+        )
+      })
+    }, [yearAndMonth])
+    
 
   const handleYearChange = (year) => {
     setYearAndMonth({
@@ -89,11 +89,12 @@ const styles = StyleSheet.create({
   headingWrapper : {
     borderBottomWidth : 1,
     borderBottomColor : 'black',
-    padding : 10
+    padding : 10,
   },
   headingText : {
     textAlign : 'center',
-    fontSize : 25
+    fontSize : 25,
+    fontWeight: 'bold'
   },
   optionsContainer : {
     borderBottomColor : 'black',
@@ -109,17 +110,28 @@ const styles = StyleSheet.create({
     margin : 5,
   },
   eachDay : {
-    backgroundColor : 'orange',
+    backgroundColor : '#5D6D7E',
     marginLeft : 5,
     width : 50,
     height : 50,
+    borderRadius: 6,
+    borderWidth: 1,
+    color: '#fff',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 20
   },
   currentDay : {
-    backgroundColor : 'green',
+    backgroundColor : '#E74C3C',
     marginLeft : 5,
     width : 50,
     height : 50,
-    color: 'white'
+    borderRadius: 6,
+    borderWidth: 1,
+    color: '#fff',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 20
   }
 })
 

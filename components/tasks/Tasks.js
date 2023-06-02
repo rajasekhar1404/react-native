@@ -4,7 +4,7 @@ import Task from "./taskHolder"
 import { GET_ALL_TASKS, UPDATE_TASK } from "../apis/taskApis"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const Tasks = ({navigation}) => {
+const Tasks = () => {
     
     const [tasks, setTasks] = useState([])
     const [isUpdated, setUpdate] = useState(0)

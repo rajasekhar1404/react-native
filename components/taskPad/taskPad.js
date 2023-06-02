@@ -15,25 +15,28 @@ const TaskPad = ({ navigation }) => {
         getTaskPadContent()
     }, [isEditing])
 
-    navigation.setOptions({
-        headerRight: () => (
-            <View>
-                
-                {
-                    isEditing ? <View style={styles.saveButtonContainer}>
-                    <Pressable onPress={handleAddTimeStamp}><Image style={styles.imageStyles} source={require('../../assets/calendar-plus.png')} alt="Add timestamp"/></Pressable>
-                    <Pressable onPress={handleSave}><Image style={styles.imageStyles} source={require('../../assets/journal-check.png')} alt="Save"/></Pressable>
-                </View> : <Pressable onPress={handleEditing}>
-                    <Image 
-                    style={styles.imageContainer}
-                    source={require('../../assets/pencil-square.png')}
-                    alt="Edit"
-                    />
-                </Pressable>
-                }
-            </View>
-            )
-        })
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <View>
+                    
+                    {
+                        isEditing ? <View style={styles.saveButtonContainer}>
+                        <Pressable onPress={handleAddTimeStamp}><Image style={styles.imageStyles} source={require('../../assets/calendar-plus.png')} alt="Add timestamp"/></Pressable>
+                        <Pressable onPress={handleSave}><Image style={styles.imageStyles} source={require('../../assets/journal-check.png')} alt="Save"/></Pressable>
+                    </View> : <Pressable onPress={handleEditing}>
+                        <Image 
+                        style={styles.imageContainer}
+                        source={require('../../assets/pencil-square.png')}
+                        alt="Edit"
+                        />
+                    </Pressable>
+                    }
+                </View>
+                )
+            })
+    })
+
 
 
     const getTaskPadContent = async () => {
@@ -53,7 +56,8 @@ const TaskPad = ({ navigation }) => {
             fetch(UPDATE_TASKPAD_CONTENT, {
                 method : 'POST',
                 headers : {
-                    'Content-Type' : 'application/json'
+                    'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${await AsyncStorage.getItem('key')}`
                 },
                 body : JSON.stringify(text)
             }).then(res => res.json()).then(json => setText(json))
