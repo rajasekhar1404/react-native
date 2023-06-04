@@ -1,8 +1,11 @@
-import { View, Text, StyleSheet, FlatList, Button } from "react-native"
+import { View, Text, StyleSheet, FlatList, Button, Linking } from "react-native"
 import { setUpDates, generateYears, months } from "../utils/setUpDates"
 import SelectDropdown from "react-native-select-dropdown"
 import { useEffect, useState } from "react"
 import Logout from "../authentication/logout"
+import PackageJson from '../../package.json'
+import base64 from 'base-64'
+import { GITHUB_APPLICATION_VERSION, GITHUB_DOWNLOAD_LATEST } from "../apis/taskApis"
 
 const Scheduler = ({ navigation }) => {
 
@@ -11,8 +14,10 @@ const Scheduler = ({ navigation }) => {
     year : new Date().getFullYear(),
     month: new Date().getMonth()
   })
+  const [isLatest, setLatest] = useState(true)
 
   useEffect(() => {
+      checkLatestVersion()
       setWeeksOfMonth(setUpDates(yearAndMonth.year, yearAndMonth.month))
       navigation.setOptions({
         headerRight: () => (
@@ -21,6 +26,16 @@ const Scheduler = ({ navigation }) => {
       })
     }, [yearAndMonth])
     
+  const checkLatestVersion = async () => {
+    const response = await fetch(GITHUB_APPLICATION_VERSION)
+    const data = await response.json()
+    const latestVersion = JSON.parse(base64.decode(data.content)).version
+    if(latestVersion === PackageJson.version) {
+      setLatest(true)
+    } else {
+      setLatest(false)
+    }
+  }
 
   const handleYearChange = (year) => {
     setYearAndMonth({
@@ -82,7 +97,10 @@ const Scheduler = ({ navigation }) => {
             style={styles.mondays}
             numColumns={7}
           />}
-        />        
+        />
+      </View>
+      <View style={styles.updateButton}>
+        { !isLatest && <Button onPress={() => Linking.openURL(GITHUB_DOWNLOAD_LATEST)} title="Download latest version"/> }
       </View>
     </View>
   )
@@ -91,6 +109,14 @@ const Scheduler = ({ navigation }) => {
 const styles = StyleSheet.create({
   mainContainer : {
     margin : 10
+  },
+  updateButton: {
+    // position: 'absolute',
+    // bottom: -240,
+    // justifyContent: 'center'
+    display: 'flex',
+    alignItems: 'center',
+    top: 200
   },
   headingWrapper : {
     borderBottomWidth : 1,

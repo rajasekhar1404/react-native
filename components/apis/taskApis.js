@@ -19,3 +19,7 @@ export const PSYCHE_GET = `https://script.google.com/macros/s/AKfycbyHveY8SMnN5W
 export const LOGIN = `${BASE_URL}users/login`
 export const LOGGEDINUSER = `${BASE_URL}users/user`
 export const REGISTER_USER = `${BASE_URL}users/register`
+
+// github apis
+export const GITHUB_APPLICATION_VERSION = "https://api.github.com/repos/rajasekhar1404/react-native/contents/package.json"
+export const GITHUB_DOWNLOAD_LATEST = "https://raw.githubusercontent.com/rajasekhar1404/react-native/master/builds/krs.apk"
