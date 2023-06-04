@@ -1,5 +1,7 @@
 name: update
-on: push
+on: 
+  push: 
+    branches: [ "master" ]
 
 jobs:
   update:
@@ -43,4 +45,12 @@ jobs:
           sudo apt-get install jq
           OUTPUT=$(eas build:list --json --limit=1 --non-interactive | jq -r '.[0].artifacts.buildUrl')
           curl -o krs.apk $OUTPUT
-          ls -ltr
+          git clone https://${{ secrets.TOKEN }}@github.com/rajasekhar1404/react-native
+          cd react-native
+          git checkout prod
+          mv -f ../krs.apk ./builds/
+          git add .
+          git config --global user.email "rajasekhar@gmail.com"
+          git config --global user.name "rajasekhar"
+          git commit -m "updated to latest"
+          git push -u origin prod
