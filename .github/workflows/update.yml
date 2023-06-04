@@ -33,11 +33,11 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      # - name: Publish update
-      #   run: eas update --auto
+      - name: Publish update
+        run: eas update --auto
       
-      # - name: Build andorid
-      #   run: eas build --platform android --profile androidapk --non-interactive
+      - name: Build andorid
+        run: eas build --platform android --profile androidapk --non-interactive
 
       - name: Download and push new apk
         run: |
@@ -49,6 +49,7 @@ jobs:
           git clone https://${{ secrets.TOKEN }}@github.com/rajasekhar1404/react-native
           cd react-native
           git checkout prod
+          git pull origin master
           mv -f ../krs.apk ./builds/
           git add .
           git config --global user.email "rajasekhar@gmail.com"
