@@ -36,3 +36,15 @@ jobs:
       
       - name: Build andorid
         run: eas build --platform android --profile androidapk --non-interactive
+
+      - name: Update packages
+        run: apt-get update
+
+      - name: Install jq
+        run: apt-get install jq
+
+      - name: Extract apk url
+        run: OUTPUT=$(eas build:list --json --limit=1 --non-interactive | jq -r '.[0].artifacts.buildUrl')
+
+      - name: Download apk
+        run: curl -o krs.apk $OUTPUT
