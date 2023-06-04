@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Text, View, StyleSheet, Pressable, Modal, TextInput } from 'react-native'
-import SelectDropdown from 'react-native-select-dropdown';
-import { generateYears, months, getDates } from '../utils/setUpDates';
+import { Text, View, StyleSheet, Pressable } from 'react-native'
 import TaskForm from '../utils/formModel';
+import Markdown from 'react-native-markdown-display';
 
 const Task = ({_id, title, description, startDate, dueDate, status, task, setTask, handleUpdate }) => {
 
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
         borderRadius : 5
     },
     textContainer : {
-        color : 'white'
+      color : 'white'
     },
     statusContainer: {
         backgroundColor: '#ccc',

@@ -3,6 +3,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import { generateYears, months, getDates } from '../utils/setUpDates';
 
 const TaskForm = ({ create, setCreate, task, setTask, handleCreate }) => {
+
     return (
         <Modal
               animationType="fade"
@@ -85,7 +86,7 @@ const TaskForm = ({ create, setCreate, task, setTask, handleCreate }) => {
                     <Pressable
                       style={[styles.button, styles.buttonClose]}
                       onPress={() => {handleCreate();setCreate(!create)}}>
-                      <Text style={styles.textStyle}>Create</Text>
+                      <Text style={styles.textStyle}>{task._id ? 'Update' : 'Create' }</Text>
                     </Pressable>
                   </View>
                 </View>

@@ -43,10 +43,16 @@ const Scheduler = ({ navigation }) => {
       </View>
       <View style={styles.optionsContainer}>
         <SelectDropdown 
+          search={true}
+          searchPlaceHolder="Enter year"
+          defaultButtonText={yearAndMonth.year}
           data={generateYears()}
           onSelect={(selectedItem) => handleYearChange(selectedItem)}
         />
         <SelectDropdown 
+          defaultButtonText={yearAndMonth.month+1}
+          search={true}
+          searchPlaceHolder="Enter month"
           data={months}
           onSelect={(selectedItem) => handleMonthChange(selectedItem)}
         />

@@ -91,9 +91,9 @@ const Psyche = ({ navigation }) => {
                     <ScrollView>
                         {
                             credentials.length > 0 ? credentials.map(each => <View style={styles.credBlock}>
-                                <Text style={styles.websiteContainer}>{each.website}</Text>
-                                <Text>{each.username}</Text>
-                                <Text>{each.password}</Text>
+                                <Text selectable={true} style={styles.websiteContainer}>{each.website}</Text>
+                                <Text selectable={true}>{each.username}</Text>
+                                <Text selectable={true}>{each.password}</Text>
                             </View>) : <Text style={styles.emptyCredentials}>No credentials found</Text>
                         }
                     </ScrollView>

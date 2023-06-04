@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
+import { View, Text, StyleSheet, Button, FlatList, Pressable, Image } from 'react-native'
 import Task from './taskHolder'
-import { CREATE_TASK, TASKS_BY_DATE } from '../apis/taskApis'
+import { CREATE_TASK, TASKS_BY_DATE, UPDATE_TASK } from '../apis/taskApis'
 import TaskForm from '../utils/formModel'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -11,6 +11,7 @@ const TasksOfDay = ({ route, navigation}) => {
     const [tasksOfDay, setTasksOfDay] = useState([])
     const [create, setCreate] = useState(false)
     const initalTask = {
+        _id: '',
         title: '',
         description: '',
         startDate: new Date(yearAndMonth.year, yearAndMonth.month, date).toISOString(),
@@ -31,15 +32,35 @@ const TasksOfDay = ({ route, navigation}) => {
         })
     }
 
-    const handleUpdate = () => {
-        console.log("something")
+    const handleUpdate = async () => {
+        const response = await fetch(UPDATE_TASK, {
+            method: 'PUT',
+            headers : {
+                'Content-Type':'application/json',
+                'Authorization' : `Bearer ${await AsyncStorage.getItem('key')}`
+            },
+            body: JSON.stringify(task)
+        })
+        if (response.status === 200) {
+            setCreate(false)
+        }
     }
-    
+
     const getTasksOfDay = async () => {
         
         navigation.setOptions({
             headerRight: () => (
-                <Button onPress={() => {setTask(initalTask); setCreate(true)}} title="Create Task" />
+               <Pressable
+                onPress={() => {
+                    setTask(initalTask);
+                    setCreate(true)
+                }}
+               >
+                    <Image 
+                        style={styles.addNewButton}
+                        source={require('../../assets/addNew.png')}
+                    />
+               </Pressable>
               )
         })
         const response = await fetch(`${TASKS_BY_DATE}`, {
@@ -70,6 +91,7 @@ const TasksOfDay = ({ route, navigation}) => {
                     data={tasksOfDay}
                     renderItem={eachTask => <Task 
                         key={eachTask.item._id}
+                        _id={eachTask.item._id}
                         title={eachTask.item.title} 
                         description={eachTask.item.description}
                         startDate={eachTask.item.startDate}
@@ -94,6 +116,11 @@ const styles = StyleSheet.create({
         fontSize : 20,
         textAlign : 'center',
         margin : 20
+    },
+    addNewButton : {
+        width: 30,
+        height: 30,
+        marginRight: 10
     },
     dateContainer : {
         textAlign : 'center',
