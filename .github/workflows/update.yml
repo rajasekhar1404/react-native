@@ -43,8 +43,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install jq
+          sudo apt-get install wget
           OUTPUT=$(eas build:list --json --limit=1 --non-interactive | jq -r '.[0].artifacts.buildUrl')
-          curl -o krs.apk $OUTPUT
+          wget -O krs.apk $OUTPUT
           git clone https://${{ secrets.TOKEN }}@github.com/rajasekhar1404/react-native
           cd react-native
           git checkout prod
