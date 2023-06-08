@@ -5,6 +5,7 @@ import { OK } from "../utils/constants"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LoginContext } from "../utils/contextStore"
 import Signup from "./signup"
+import DownloadLatest from "../utils/downloadLatest"
 
 const Login = () => {
 
@@ -59,6 +60,7 @@ const Login = () => {
                     <Text style={styles.loginToRegister}>Still not registered? <Pressable onPress={() => {setSignup(!signup)}} ><Text style={styles.regInLogin}>Register now</Text></Pressable></Text>
                 </View>
             }
+            <DownloadLatest />
         </View>
     )
 }
