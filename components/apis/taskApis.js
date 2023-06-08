@@ -1,3 +1,5 @@
+import PackageJson from "../../package.json"
+
 const BASE_URL = "https://rajasekhar.up.railway.app/"
 // const BASE_URL = "http://localhost:8080/"
 // const BASE_URL = 'https://krs-backend-lwq1.onrender.com/'
@@ -22,4 +24,4 @@ export const REGISTER_USER = `${BASE_URL}users/register`
 
 // github apis
 export const GITHUB_APPLICATION_VERSION = "https://api.github.com/repos/rajasekhar1404/react-native/contents/package.json"
-export const GITHUB_DOWNLOAD_LATEST = "https://raw.githubusercontent.com/rajasekhar1404/krs-mobile-builds/main/krs.apk"
+export const GITHUB_DOWNLOAD_LATEST = `https://raw.githubusercontent.com/rajasekhar1404/krs-mobile-builds/main/krs_${PackageJson.version}.apk`
