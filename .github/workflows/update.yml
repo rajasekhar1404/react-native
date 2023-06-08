@@ -33,8 +33,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      # - name: Publish update
-      #   run: eas update --auto
+      - name: Publish update
+        run: eas update --auto
       
       # - name: Build andorid
       #   run: eas build --platform android --profile androidapk --non-interactive
