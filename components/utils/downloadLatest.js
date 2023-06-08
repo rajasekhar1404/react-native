@@ -2,6 +2,7 @@ import { Button, Linking, StyleSheet, View } from "react-native"
 import { GITHUB_APPLICATION_VERSION, GITHUB_DOWNLOAD_LATEST } from "../apis/taskApis"
 import { useEffect, useState } from "react"
 import base64 from 'base-64'
+import PackageJson from '../../package.json'
 
 const DownloadLatest = () => {
 
