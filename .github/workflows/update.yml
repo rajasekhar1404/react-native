@@ -45,10 +45,11 @@ jobs:
           sudo apt-get install jq
           sudo apt-get install wget
           OUTPUT=$(eas build:list --json --limit=1 --non-interactive | jq -r '.[0].artifacts.buildUrl')
-          wget -O krs.apk $OUTPUT
+          VERSION=$(wget https://raw.githubusercontent.com/rajasekhar1404/react-native/master/package.json | jq -r '.version')
+          wget -O krs_${VERSION}.apk $OUTPUT
           git clone https://${{ secrets.TOKEN }}@github.com/rajasekhar1404/krs-mobile-builds
           cd krs-mobile-builds
-          mv -f ../krs.apk .
+          mv -f ../krs_${VERSION}.apk .
           git add .
           git config --global user.email "rajasekhar@gmail.com"
           git config --global user.name "rajasekhar"
