@@ -22,4 +22,4 @@ export const REGISTER_USER = `${BASE_URL}users/register`
 
 // github apis
 export const GITHUB_APPLICATION_VERSION = "https://api.github.com/repos/rajasekhar1404/react-native/contents/package.json"
-export const GITHUB_DOWNLOAD_LATEST = "https://raw.githubusercontent.com/rajasekhar1404/react-native/prod/builds/krs.apk"
+export const GITHUB_DOWNLOAD_LATEST = "https://raw.githubusercontent.com/rajasekhar1404/krs-mobile-builds/main/krs.apk"
