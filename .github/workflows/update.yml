@@ -36,8 +36,8 @@ jobs:
       # - name: Publish update
       #   run: eas update --auto
       
-      - name: Build andorid
-        run: eas build --platform android --profile androidapk --non-interactive
+      # - name: Build andorid
+      #   run: eas build --platform android --profile androidapk --non-interactive
 
       - name: Download and push new apk
         run: |
