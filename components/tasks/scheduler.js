@@ -6,6 +6,7 @@ import Logout from "../authentication/logout"
 import PackageJson from '../../package.json'
 import base64 from 'base-64'
 import { GITHUB_APPLICATION_VERSION, GITHUB_DOWNLOAD_LATEST } from "../apis/taskApis"
+import DownloadLatest from "../utils/downloadLatest"
 
 const Scheduler = ({ navigation }) => {
 
@@ -99,9 +100,7 @@ const Scheduler = ({ navigation }) => {
           />}
         />
       </View>
-      <View style={styles.updateButton}>
-        { !isLatest && <Button onPress={() => Linking.openURL(GITHUB_DOWNLOAD_LATEST)} title="Download latest version"/> }
-      </View>
+      {!isLatest && <DownloadLatest />}
     </View>
   )
 }
@@ -109,14 +108,6 @@ const Scheduler = ({ navigation }) => {
 const styles = StyleSheet.create({
   mainContainer : {
     margin : 10
-  },
-  updateButton: {
-    // position: 'absolute',
-    // bottom: -240,
-    // justifyContent: 'center'
-    display: 'flex',
-    alignItems: 'center',
-    top: 200
   },
   headingWrapper : {
     borderBottomWidth : 1,

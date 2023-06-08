@@ -36,8 +36,8 @@ jobs:
       - name: Publish update
         run: eas update --auto
       
-      - name: Build andorid
-        run: eas build --platform android --profile androidapk --non-interactive
+      # - name: Build andorid
+      #   run: eas build --platform android --profile androidapk --non-interactive
 
       - name: Download and push new apk
         run: |
@@ -46,13 +46,11 @@ jobs:
           sudo apt-get install wget
           OUTPUT=$(eas build:list --json --limit=1 --non-interactive | jq -r '.[0].artifacts.buildUrl')
           wget -O krs.apk $OUTPUT
-          git clone https://${{ secrets.TOKEN }}@github.com/rajasekhar1404/react-native
-          cd react-native
-          git checkout prod
-          git pull origin master
-          mv -f ../krs.apk ./builds/
+          git clone https://${{ secrets.TOKEN }}@github.com/rajasekhar1404/krs-mobile-builds
+          cd krs-mobile-builds
+          mv -f ../krs.apk .
           git add .
           git config --global user.email "rajasekhar@gmail.com"
           git config --global user.name "rajasekhar"
           git commit -m "updated to latest"
-          git push -u origin prod
+          git push -u origin main
