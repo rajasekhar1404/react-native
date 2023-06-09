@@ -51,8 +51,7 @@ jobs:
           git clone https://${{ secrets.TOKEN }}@github.com/rajasekhar1404/krs-mobile-builds
           cd krs-mobile-builds
           mv -f ../krs_$VERSION.apk .
-          CONTENT=$(`## Download latest version: [![Download now](https://i.gyazo.com/51c42b9a6d9ffcfc117d6e4afc4e399d.png)](https://raw.githubusercontent.com/rajasekhar1404/krs-mobile-builds/main/krs_$VERSION.apk)`)
-          echo "## Download latest version: [![Download now](https://i.gyazo.com/51c42b9a6d9ffcfc117d6e4afc4e399d.png)](https://raw.githubusercontent.com/rajasekhar1404/krs-mobile-builds/main/krs_"+$VERSION+".apk)" > README.md
+          echo "## Download latest version: [![Download now](https://i.gyazo.com/51c42b9a6d9ffcfc117d6e4afc4e399d.png)](https://raw.githubusercontent.com/rajasekhar1404/krs-mobile-builds/main/krs_"$VERSION".apk)" > README.md
           git add .
           git config --global user.email "rajasekhar@gmail.com"
           git config --global user.name "rajasekhar"
