@@ -67,7 +67,7 @@ const Login = () => {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        top: 300
+        top: "30%"
     },
     heading: {
         fontSize: 30,
@@ -77,15 +77,14 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: 'white',
         borderRadius: 8,
-        paddingVertical: 35,
+        paddingVertical: "5%",
         paddingHorizontal: 25,
         width: '100%',
         marginVertical: 10,
     },
     formContainer: {
-        width: 300,
-        height: 300,
-        marginLeft: 70,
+        width: "75%",
+        marginHorizontal: "13%",
         alignItems: 'center',
         elevation: 10,
         shadowColor: '#52006A',
@@ -95,19 +94,18 @@ const styles = StyleSheet.create({
     inputContainer: {
         borderColor: '#aaa',
         borderWidth: 1,
-        height: 40,
-        width: 250,
+        height: "15%",
+        width: "100%",
         paddingLeft: 10,
         borderRadius: 7,
         marginBottom: 10
     },
     buttonContainer: {
-        width: 150,
+        width: "70%",
         borderRadius: 7,
         borderWidth: 1
     },
     loginToRegister: {
-        width: 400,
         marginTop: 10,
         textAlign: 'center'
     },

@@ -7,7 +7,7 @@ import PackageJson from '../../package.json'
 const DownloadLatest = () => {
 
     const [isLatest, setLatest] = useState(true)
-    const [version, setVersion] = useState('')
+    const [version, setVersion] = useState(PackageJson.version)
 
     useEffect(() => {
         checkLatestVersion()
@@ -27,7 +27,7 @@ const DownloadLatest = () => {
 
     return (
         <View style={styles.updateButton}>
-            {!isLatest && <Button onPress={() => Linking.openURL(GITHUB_DOWNLOAD_LATEST+`krs_${version}.apk`)} title="Download latest version"/>}
+            {isLatest && <Button onPress={() => Linking.openURL(GITHUB_DOWNLOAD_LATEST+`krs_${version}.apk`)} title="Download latest version"/>}
         </View>
     )
 }
@@ -36,7 +36,9 @@ const styles = StyleSheet.create({
     updateButton: {
         display: 'flex',
         alignItems: 'center',
-        top: 200
+        position: 'absolute',
+        bottom: "-25%",
+        marginHorizontal: '25%'
       }
 })
 
