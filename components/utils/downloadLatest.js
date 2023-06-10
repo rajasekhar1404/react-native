@@ -27,7 +27,7 @@ const DownloadLatest = () => {
 
     return (
         <View style={styles.updateButton}>
-            {isLatest && <Button onPress={() => Linking.openURL(GITHUB_DOWNLOAD_LATEST+`krs_${version}.apk`)} title="Download latest version"/>}
+            {!isLatest && <Button onPress={() => Linking.openURL(GITHUB_DOWNLOAD_LATEST+`krs_${version}.apk`)} title="Download latest version"/>}
         </View>
     )
 }
