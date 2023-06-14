@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import BottomTabs from './bottomTabs'
 import Scheduler from '../tasks/scheduler'
 import TasksOfDay from '../tasks/tasksOfDay'
+import DownloadLatest from './downloadLatest'
 
 const Stack = createNativeStackNavigator()
 

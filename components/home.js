@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     validateLocalAuthentication()
     validateToken()
-  }, [key])
+  }, [])
 
   const validateLocalAuthentication = async () => {
     const response = await LocalAuthentication.authenticateAsync()

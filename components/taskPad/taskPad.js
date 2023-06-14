@@ -101,8 +101,7 @@ const styles = StyleSheet.create({
     markdownText : {
         body : {
             color : 'white',
-            padding : 10,
-            height: 2000
+            padding : 10
         },
         em : {
             color : '#eee'

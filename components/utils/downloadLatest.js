@@ -7,7 +7,7 @@ import PackageJson from '../../package.json'
 const DownloadLatest = () => {
 
     const [isLatest, setLatest] = useState(true)
-    const [version, setVersion] = useState('')
+    const [version, setVersion] = useState(PackageJson.version)
 
     useEffect(() => {
         checkLatestVersion()
@@ -36,7 +36,9 @@ const styles = StyleSheet.create({
     updateButton: {
         display: 'flex',
         alignItems: 'center',
-        top: 200
+        position: 'absolute',
+        bottom: "-25%",
+        marginHorizontal: '25%'
       }
 })
 

@@ -91,12 +91,12 @@ const Scheduler = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   mainContainer : {
-    margin : 10
+    marginTop : "2%"
   },
   headingWrapper : {
     borderBottomWidth : 1,
     borderBottomColor : 'black',
-    padding : 10,
+    padding : "3%",
   },
   headingText : {
     textAlign : 'center',
@@ -109,9 +109,15 @@ const styles = StyleSheet.create({
     borderBottomWidth : 1,
     flexDirection : 'row'
   },
-  calenderWrapper : {
-    marginLeft : 20,
-    marginTop: 15
+  calenderWrapper: {
+    width: "90%",
+    marginLeft: 20,
+    marginTop: 15,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    padding: 5,
   },
   mondays : {
     margin : 5,
@@ -119,7 +125,8 @@ const styles = StyleSheet.create({
   eachDay : {
     backgroundColor : '#5D6D7E',
     marginLeft : 5,
-    width : 50,
+    width : "13%",
+    aspectRatio: 1,
     height : 50,
     borderRadius: 6,
     borderWidth: 1,
@@ -131,7 +138,8 @@ const styles = StyleSheet.create({
   currentDay : {
     backgroundColor : '#E74C3C',
     marginLeft : 5,
-    width : 50,
+    width : "13%",
+    aspectRatio: 1,
     height : 50,
     borderRadius: 6,
     borderWidth: 1,

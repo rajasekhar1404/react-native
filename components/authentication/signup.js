@@ -69,9 +69,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     formContainer: {
-        width: 300,
-        height: 320,
-        marginLeft: 70,
+        width: "75%",
+        marginHorizontal: "13%",
         alignItems: 'center',
         elevation: 10,
         shadowColor: '#52006A',
@@ -81,8 +80,8 @@ const styles = StyleSheet.create({
     inputContainer: {
         borderColor: '#aaa',
         borderWidth: 1,
-        height: 40,
-        width: 250,
+        height: "12%",
+        width: "100%",
         paddingLeft: 10,
         borderRadius: 7,
         marginBottom: 10
