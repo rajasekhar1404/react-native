@@ -7,6 +7,7 @@ import { LOGGEDINUSER } from "./apis/taskApis"
 import { OK } from "./utils/constants"
 import { LoginContext } from "./utils/contextStore"
 import * as LocalAuthentication from 'expo-local-authentication'
+import Authenticate from "./authentication/authenticate"
 
 const Home = () => {
 
@@ -41,7 +42,7 @@ const Home = () => {
   return (
       <View style={styles.container}>
         {
-          key && localAuth ? <Navigator /> : <Login />
+          key && localAuth ? <Navigator /> : <Authenticate />  // <Login />
         }
       </View>
   )

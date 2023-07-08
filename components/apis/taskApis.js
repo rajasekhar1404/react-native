@@ -1,8 +1,6 @@
-import PackageJson from "../../package.json"
+const BASE_URL = "http://3.95.166.145:8081/api/"
+// const BASE_URL = "http://192.168.0.100:8081/api/"
 
-const BASE_URL = "https://rajasekhar.up.railway.app/api/"
-// const BASE_URL = "http://localhost:8080/"
-// const BASE_URL = 'https://krs-backend-lwq1.onrender.com/'
 
 // tasks
 export const GET_ALL_TASKS = `${BASE_URL}tasks`
@@ -21,6 +19,9 @@ export const PSYCHE_GET = `https://script.google.com/macros/s/AKfycbyHveY8SMnN5W
 export const LOGIN = `${BASE_URL}users/login`
 export const LOGGEDINUSER = `${BASE_URL}users/user`
 export const REGISTER_USER = `${BASE_URL}users/register`
+export const SEND_FORGOT_PASSWORD_OTP = `${BASE_URL}users/forgotPassword`
+export const FORGOT_PASSWORD_VERIFY_OTP = `${BASE_URL}users/verifyotp`
+export const UPDATE_PASSWORD_FORGOT = `${BASE_URL}users/updateForgotPassword`
 
 // github apis
 export const GITHUB_APPLICATION_VERSION = "https://api.github.com/repos/rajasekhar1404/react-native/contents/package.json"
